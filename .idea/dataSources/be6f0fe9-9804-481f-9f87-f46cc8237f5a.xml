@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL - biblioteca5@172.31.73.192">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.6">
+    <database id="1" name="biblioteca5">
+      <object-id>65625</object-id>
+      <visible>1</visible>
+    </database>
+    <database id="2" name="postgres">
+      <object-id>12455</object-id>
+    </database>
+    <database id="3" name="jerry">
+      <object-id>24577</object-id>
+    </database>
+    <database id="4" name="employee">
+      <object-id>57345</object-id>
+    </database>
+    <database id="5" name="biblioteca">
+      <object-id>65549</object-id>
+    </database>
+    <database id="6" name="biblioteca2">
+      <object-id>65565</object-id>
+    </database>
+    <database id="7" name="biblioteca3">
+      <object-id>65585</object-id>
+    </database>
+    <database id="8" name="biblioteca4">
+      <object-id>65605</object-id>
+    </database>
+    <schema id="9" parent="1" name="public">
+      <object-id>2200</object-id>
+      <visible>1</visible>
+      <introspection-state-number>20826</introspection-state-number>
+      <introspection-timestamp>2017-01-23.16:09:21.869</introspection-timestamp>
+    </schema>
+    <schema id="10" parent="1" name="pg_catalog">
+      <object-id>11</object-id>
+    </schema>
+    <schema id="11" parent="1" name="pg_toast">
+      <object-id>99</object-id>
+    </schema>
+    <schema id="12" parent="1" name="pg_temp_1">
+      <object-id>11816</object-id>
+    </schema>
+    <schema id="13" parent="1" name="pg_toast_temp_1">
+      <object-id>11817</object-id>
+    </schema>
+    <schema id="14" parent="1" name="information_schema">
+      <object-id>12163</object-id>
+    </schema>
+    <sequence id="15" parent="9" name="serial">
+      <object-id>65626</object-id>
+      <state-number>20824</state-number>
+    </sequence>
+    <table id="16" parent="9" name="llibres">
+      <object-id>65628</object-id>
+      <state-number>20825</state-number>
+    </table>
+    <table id="17" parent="9" name="socis">
+      <object-id>65636</object-id>
+      <state-number>20826</state-number>
+    </table>
+    <column id="18" parent="16" name="llibre_id">
+      <state-number>20825</state-number>
+      <mandatory>1</mandatory>
+      <data-type>integer|0</data-type>
+      <default-expression>nextval(&apos;serial&apos;::regclass)</default-expression>
+    </column>
+    <column id="19" parent="16" name="títol">
+      <state-number>20825</state-number>
+      <data-type>varchar(50)|0</data-type>
+      <default-expression>NULL::character varying</default-expression>
+    </column>
+    <column id="20" parent="16" name="nombre_exemplars">
+      <state-number>20825</state-number>
+      <data-type>integer|0</data-type>
+    </column>
+    <column id="21" parent="16" name="editorial">
+      <state-number>20825</state-number>
+      <data-type>varchar(50)|0</data-type>
+      <default-expression>NULL::character varying</default-expression>
+    </column>
+    <column id="22" parent="16" name="nombre_pagines">
+      <state-number>20825</state-number>
+      <data-type>integer|0</data-type>
+    </column>
+    <index id="23" parent="16" name="llibres_pkey">
+      <object-id>65634</object-id>
+      <columns>llibre_id</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="24" parent="16" name="llibres_pkey">
+      <object-id>65635</object-id>
+      <columns>llibre_id</columns>
+      <underlying-index>llibres_pkey</underlying-index>
+      <primary>1</primary>
+    </key>
+    <column id="25" parent="17" name="soci_id">
+      <state-number>20826</state-number>
+      <mandatory>1</mandatory>
+      <data-type>integer|0</data-type>
+      <default-expression>nextval(&apos;serial&apos;::regclass)</default-expression>
+    </column>
+    <column id="26" parent="17" name="nom">
+      <state-number>20826</state-number>
+      <data-type>varchar(50)|0</data-type>
+      <default-expression>NULL::character varying</default-expression>
+    </column>
+    <column id="27" parent="17" name="cognom">
+      <state-number>20826</state-number>
+      <data-type>varchar(50)|0</data-type>
+      <default-expression>NULL::character varying</default-expression>
+    </column>
+    <column id="28" parent="17" name="edat">
+      <state-number>20826</state-number>
+      <data-type>integer|0</data-type>
+    </column>
+    <column id="29" parent="17" name="direccio">
+      <state-number>20826</state-number>
+      <data-type>varchar(50)|0</data-type>
+      <default-expression>NULL::character varying</default-expression>
+    </column>
+    <column id="30" parent="17" name="telefon">
+      <state-number>20826</state-number>
+      <data-type>integer|0</data-type>
+    </column>
+    <index id="31" parent="17" name="socis_pkey">
+      <object-id>65643</object-id>
+      <columns>soci_id</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="32" parent="17" name="socis_pkey">
+      <object-id>65644</object-id>
+      <columns>soci_id</columns>
+      <underlying-index>socis_pkey</underlying-index>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>
