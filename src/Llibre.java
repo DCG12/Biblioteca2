@@ -38,7 +38,7 @@ public class Llibre {
     }
 
     public int getNombre_exemplars() {
-        return nombre_exemplars;
+        return this.nombre_exemplars;
     }
 
     public void setNombre_exemplars(int nombre_exemplars) {

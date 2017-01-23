@@ -10,7 +10,7 @@ public class Prestec {
     private String data_inici;
     private String data_final;
 
-    public Prestec() {}
+    public Prestec(int llibre_id, int soci_id, String llibre, String soci, int data_inici, int data_final) {}
 
     public Prestec(int llibre_id, int soci_id, String llibre, String soci, String data_inici, String data_final) {
         this.llibre_id = llibre_id;

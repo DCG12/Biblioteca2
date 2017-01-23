@@ -1,6 +1,5 @@
 
 import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.hibernate.HibernateException;
@@ -19,33 +18,33 @@ public class ManageSoci {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        ManageEmployee ME = new ManageEmployee();/* Add
+        ManageSoci ME = new ManageSoci();/* Add
 
 
 
 few employee records in database */
-        Integer  empID1 = ME.addEmployee("Zara", "Ali", 1000);
-        Integer  empID2 = ME.addEmployee("Daisy", "Das", 5000);
-        Integer  empID3 = ME.addEmployee("John", "Paul", 10000);
+        Integer  empID1 = ME.addSocis(5521, "Cristian", "Ramirez", 21, "En casa de su suegros", 645217942);
+        Integer  empID2 = ME.addSocis(9521, "Fabian", "Puig", 40, "Castellon", 611926452);
+        Integer  empID3 = ME.addSocis(7410, "Marcos", "Canton", 33, "a unos 20 minutos del insti", 688214239);
 
         /* List down all the employees */
-        ME.listEmployees();
+        ME.listSoci();
 /* Update employee's records */
-        ME.updateEmployee(empID1, 5000);
+       // ME.updateEmployee(empID1, 5000);
 /* Delete an employee from the database */
-        ME.deleteEmployee(empID2);
+        //ME.deleteEmployee(empID2);
 /* List down new list of the employees */
-        ME.listEmployees();
+        ME.listSoci();
     }
     /* Method to CREATE an employee in the database */
-    public Integer addEmployee(String fname, String lname, int salary){
+    public Integer addSocis(int soci_id, String nom, String cognom, int edat, String direccio, int telefon){
         Session session = factory.openSession();
         Transaction tx = null;
         Integer employeeID = null;
         try{
             tx = session.beginTransaction();
-            Employee employee = new Employee(fname, lname, salary);
-            employeeID = (Integer) session.save(employee);
+            Soci soci = new Soci(soci_id, nom, cognom, edat, direccio, telefon);
+            //soci_id = (Integer) session.save(soci);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -56,18 +55,21 @@ few employee records in database */
         return employeeID;
     }
     /* Method to READ all the employees */
-    public void listEmployees( ){
+    public void listSoci( ){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            List employees = session.createQuery("FROM Employee").list();
+            List socis = session.createQuery("FROM Soci").list();
             for (Iterator iterator =
-                 employees.iterator(); iterator.hasNext();){
-                Employee employee = (Employee) iterator.next();
-                System.out.print("First Name: " + employee.getFirstName());
-                System.out.print(" Last Name: " + employee.getLastName());
-                System.out.println(" Salary: " + employee.getSalary());
+                 socis.iterator(); iterator.hasNext();){
+                Soci soci = (Soci) iterator.next();
+                System.out.print(" Id: " + soci.getSoci_id());
+                System.out.print(" Nom: " + soci.getNom());
+                System.out.println(" Cognom: " + soci.getCognom());
+                System.out.print(" edat: " + soci.getEdat());
+                System.out.print(" direcció: " + soci.getDireccio());
+                System.out.println(" telefon: " + soci.getTelefon());
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -78,15 +80,14 @@ few employee records in database */
         }
     }
     /* Method to UPDATE salary for an employee */
-    public void updateEmployee(Integer EmployeeID, int salary ){
+    public void updateSoci(Integer soci_id, String direccio ){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            Employee employee =
-                    (Employee)session.get(Employee.class, EmployeeID);
-            employee.setSalary( salary );
-            session.update(employee);
+            Soci soci = (Soci)session.get(Soci.class, soci_id);
+            soci.setDireccio();
+            session.update(soci);
             tx.commit();
         }catch (HibernateException e) {if (tx!=null) tx.rollback();
             e.printStackTrace();
@@ -95,14 +96,13 @@ few employee records in database */
         }
     }
     /* Method to DELETE an employee from the records */
-    public void deleteEmployee(Integer EmployeeID){
+    public void deleteSoci(Integer soci_id){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            Employee employee =
-                    (Employee)session.get(Employee.class, EmployeeID);
-            session.delete(employee);
+            Soci soci = (Soci) session.get(Soci.class, soci_id);
+            session.delete(soci);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();

@@ -20,7 +20,7 @@ public class ManageLlibre {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        ManageLlibre ME = new ManageLlibre();/
+        ManageLlibre ME = new ManageLlibre();
 
         Integer  empID1 = ME.addLlibre(8569, "La sombra del viento", 5, "Planeta", 501, 2001);
         Integer  empID2 = ME.addLlibre(8567, "El sabueso de los Baskerville", 3, "Strand Magazine", 368, 1902);
@@ -65,12 +65,13 @@ public class ManageLlibre {
             List llibre = session.createQuery("FROM Llibre").list();
             for (Iterator iterator =
                  llibre.iterator(); iterator.hasNext();){
-                Llibre llibre = (Llibre) iterator.next();
-                System.out.print("First Name: " + llibre.getTítol());
-                System.out.print(" Last Name: " + llibre.getEditorial());
-                System.out.println(" Salary: " + llibre.getAny_edicio());
-                System.out.println(" Salary: " + llibre.getNombre_pagines());
-                System.out.println(" Salary: " + llibre.getNombre_exemplars());
+                Llibre libro = (Llibre) iterator.next();
+                System.out.print("Id: " + libro.getLlibre_id());
+                System.out.print("Titol: " + libro.getTítol());
+                System.out.print("Editorial: " + libro.getEditorial());
+                System.out.println("Any d'edició: " + libro.getAny_edicio());
+                System.out.println(" numero de pagines: " + libro.getNombre_pagines());
+                System.out.println(" numero d'exemplars: " + libro.getNombre_exemplars());
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -81,14 +82,14 @@ public class ManageLlibre {
         }
     }
 
-    public void updateLlibre(Integer llibreID, int salary ){
+    public void updateLlibre(Integer llibreID, int nombre_exemplars ){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
             Llibre llibre =
-                    (Llibre)session.get(Llibre.class, EmployeeID);
-            llibre.setSalary( salary );
+                    (Llibre)session.get(Llibre.class, llibreID);
+            llibre.getNombre_exemplars();
             session.update(llibre);
             tx.commit();
         }catch (HibernateException e) {if (tx!=null) tx.rollback();

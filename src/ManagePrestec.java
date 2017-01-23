@@ -20,33 +20,32 @@ public class ManagePrestec {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        ManageLlibres ME = new ManageLlibres();/* Add
+        ManagePrestec ME = new ManagePrestec();/* Add
 
 
 
 few employee records in database */
-        Integer  empID1 = ME.addLlibres("Zara", "Ali", 1000);
-        Integer  empID2 = ME.addLlibres("Daisy", "Das", 5000);
-        Integer  empID3 = ME.addLlibres("John", "Paul", 10000);
-
+        Integer  empID1 = ME.addPrestec( 8569, 9521, "La sombra del viento", "Crisitan", "21/2/2016", "26/2/2016");
+        Integer  empID2 = ME.addPrestec(8569, 5521,"La sombra del viento", "Fabian", "9/6/2016", "30/6/2016");
+        Integer  empID3 = ME.addPrestec(8569, 7410,"Maus", "Marcos", "1/11/2016", "2/12/2016");
         /* List down all the employees */
-        ME.listLlibres();
+        ME.listPrestec();
 /* Update employee's records */
-        ME.updateLlibres(empID1, 5000);
+       // ME.updatePrestec(empID1, 5000);
 /* Delete an employee from the database */
-        ME.deleteLlibres(empID2);
+       // ME.deletePrestec(empID2);
 /* List down new list of the employees */
-        ME.listLlibres();
+        ME.listPrestec();
     }
     /* Method to CREATE an employee in the database */
-    public Integer addLlibres(String fname, String lname, int salary){
+    public Integer addPrestec(int llibre_id, int soci_id, String llibre, String soci, String data_inici, String data_final){
         Session session = factory.openSession();
         Transaction tx = null;
         Integer employeeID = null;
         try{
             tx = session.beginTransaction();
-            Llibres llibres = new Llibres(fname, lname, salary);
-            employeeID = (Integer) session.save(llibres);
+            Prestec prestec = new Prestec(llibre_id, soci_id, llibre, soci, data_inici, data_final);
+            employeeID = (Integer) session.save(prestec);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -54,21 +53,24 @@ few employee records in database */
         }finally {
             session.close();
         }
-        return llibresID;
+        return employeeID;
     }
     /* Method to READ all the employees */
-    public void listEmployees( ){
+    public void listPrestec( ){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            List employees = session.createQuery("FROM Llibres").list();
+            List employees = session.createQuery("FROM Prestec").list();
             for (Iterator iterator =
                  employees.iterator(); iterator.hasNext();){
-                Llibres llibres = (Llibres) iterator.next();
-                System.out.print("First Name: " + llibres.getFirstName());
-                System.out.print(" Last Name: " + llibres.getLastName());
-                System.out.println(" Salary: " + llibres.getSalary());
+                Prestec prestec = (Prestec) iterator.next();
+                System.out.print("Llibre id: " + prestec.getLlibre_id());
+                System.out.print(" soci id: " + prestec.getSoci_id());
+                System.out.println(" llibre: " + prestec.getLlibre());
+                System.out.print(" soci: " + prestec.getSoci());
+                System.out.print(" data de inici: " + prestec.getData_inici());
+                System.out.println(" data de fi: " + prestec.getData_final());
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -79,15 +81,14 @@ few employee records in database */
         }
     }
     /* Method to UPDATE salary for an employee */
-    public void updateEmployee(Integer EmployeeID, int salary ){
+    public void updatePrestec(Integer llibre_id, String data_final ){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            Llibres llibres =
-                    (Llibres)session.get(Llibres.class, EmployeeID);
-            llibres.setSalary( salary );
-            session.update(llibres);
+            Prestec prestec = (Prestec) session.get(Prestec.class, llibre_id);
+            prestec.setData_final( data_final );
+            session.update(prestec);
             tx.commit();
         }catch (HibernateException e) {if (tx!=null) tx.rollback();
             e.printStackTrace();
@@ -96,12 +97,12 @@ few employee records in database */
         }
     }
     /* Method to DELETE an employee from the records */
-    public void deleteEmployee(Integer EmployeeID){
+    public void deletePrestec(Integer llibre_id){
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            Llibres llibres = (Llibres)session.get(Llibres.class, EmployeeID);
+            Prestec llibres = (Prestec) session.get(Prestec.class, llibre_id);
             session.delete(llibres);
             tx.commit();
         }catch (HibernateException e) {

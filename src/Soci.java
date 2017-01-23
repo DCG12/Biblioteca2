@@ -57,7 +57,7 @@ public class Soci {
         return direccio;
     }
 
-    public void setDireccio(String direccio) {
+    public void setDireccio() {
         this.direccio = direccio;
     }
 
